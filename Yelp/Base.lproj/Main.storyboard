@@ -65,8 +65,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdh-14-yS9">
-                                                    <rect key="frame" x="81" y="62" width="125" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdh-14-yS9">
+                                                    <rect key="frame" x="81" y="65" width="125" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.60080517950041679" green="0.60172112944162437" blue="0.59837881713223928" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
@@ -87,6 +87,7 @@
                                             <constraints>
                                                 <constraint firstItem="jIW-x2-Tk2" firstAttribute="leading" secondItem="i8m-xf-0H5" secondAttribute="leading" constant="8" id="9f7-af-BMK"/>
                                                 <constraint firstItem="j1J-pA-Ulb" firstAttribute="top" secondItem="Vdc-be-yUy" secondAttribute="bottom" constant="3" id="EYi-18-Zff"/>
+                                                <constraint firstItem="Fdh-14-yS9" firstAttribute="top" secondItem="j6l-Ft-xrk" secondAttribute="bottom" constant="1" id="JVW-L9-0EY"/>
                                                 <constraint firstItem="jIW-x2-Tk2" firstAttribute="top" secondItem="i8m-xf-0H5" secondAttribute="top" constant="8" id="RUq-Ui-8GV"/>
                                                 <constraint firstItem="Vdc-be-yUy" firstAttribute="leading" secondItem="jIW-x2-Tk2" secondAttribute="trailing" constant="8" id="XzP-ha-od0"/>
                                                 <constraint firstItem="am5-vl-1Lb" firstAttribute="leading" secondItem="Vdc-be-yUy" secondAttribute="trailing" constant="8" id="Y5d-uv-yT0"/>
@@ -103,7 +104,6 @@
                                                 <constraint firstItem="am5-vl-1Lb" firstAttribute="top" secondItem="i8m-xf-0H5" secondAttribute="top" constant="10" id="rWu-FX-HQG"/>
                                                 <constraint firstItem="Fdh-14-yS9" firstAttribute="leading" secondItem="j6l-Ft-xrk" secondAttribute="leading" id="tNS-72-qHH"/>
                                                 <constraint firstAttribute="trailing" secondItem="j6l-Ft-xrk" secondAttribute="trailing" constant="12" id="ufq-aW-DCb"/>
-                                                <constraint firstItem="Kdy-Ot-gSy" firstAttribute="centerY" secondItem="j1J-pA-Ulb" secondAttribute="centerY" id="uyO-tB-qpM"/>
                                                 <constraint firstItem="j1J-pA-Ulb" firstAttribute="leading" secondItem="jIW-x2-Tk2" secondAttribute="trailing" constant="8" id="zBb-On-q7u"/>
                                             </constraints>
                                         </tableViewCellContentView>
