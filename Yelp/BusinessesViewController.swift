@@ -13,6 +13,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
+    var filteredData: [Business]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // Create search bar in nav bar
         let searchBar = UISearchBar()
+        searchBar.delegate = self
         searchBar.sizeToFit()
+        
         
         // Put search bar in the title view
         navigationItem.titleView = searchBar
@@ -36,6 +39,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         Business.searchWithTerm(term: "Restaurants", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
+            self.filteredData = self.businesses
             self.tableView.reloadData()
             if let businesses = businesses {
                 for business in businesses {
@@ -66,8 +70,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if businesses != nil {
-            return businesses.count
+        if filteredData != nil {
+            return filteredData.count
         } else {
             return 0
         }
@@ -76,18 +80,34 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         
-        cell.business = businesses[indexPath.row]
+        cell.business = filteredData[indexPath.row]
         return cell
     }
     
+    
+    // Search bar delegate functions
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            tableView.reloadData()
+        
+        filteredData = searchText.isEmpty ? self.businesses : self.businesses.filter {(item: Business) -> Bool in
+            return item.name?.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        tableView.reloadData()
     }
     
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        searchBar.showsCancelButton = true
-//    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        
+//    }
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
