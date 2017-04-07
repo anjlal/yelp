@@ -123,7 +123,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.offset = self.offset + 20
         
         Business.searchWithTerm(term: "Restaurants", offset: self.offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
-            self.businesses = businesses ?? nil
+            
+            if businesses != nil {
+                for business in businesses! {
+                    self.businesses.append(business)
+                }
+                self.filteredData = self.businesses
+            }
             
             // Update flag
             self.isMoreDataLoading = false
