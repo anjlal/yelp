@@ -8,12 +8,15 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
     var filteredData: [Business]!
+    var isMoreDataLoading = false
+    var loadingMoreView:InfiniteScrollActivityView?
+    var offset = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +37,18 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         // Put search bar in the title view
         navigationItem.titleView = searchBar
         
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        tableView.contentInset = insets
         
         
-        Business.searchWithTerm(term: "Restaurants", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", offset: 0, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
             self.filteredData = self.businesses
@@ -85,7 +97,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    // Search bar delegate functions
+    // Search bar delegate methods
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
@@ -105,9 +117,50 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         searchBar.resignFirstResponder()
     }
     
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        
-//    }
+    // Scroll delegate methods
+    func loadMoreData() {
+        
+        self.offset = self.offset + 20
+        
+        Business.searchWithTerm(term: "Restaurants", offset: self.offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            self.businesses = businesses ?? nil
+            
+            // Update flag
+            self.isMoreDataLoading = false
+            // Stop the loading indicator
+            self.loadingMoreView!.stopAnimating()
+            if let businesses = businesses {
+                for business in businesses {
+                    print(business.name!)
+                    print(business.address!)
+                }
+            }
+            print(self.offset)
+            self.tableView.reloadData()
+        })
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                isMoreDataLoading = true
+                
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                // Code to load more results
+                loadMoreData()
+            }
+        }
+    }
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -123,7 +176,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let categories = filters["categories"] as? [String]
         
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, offset: 20, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses ?? nil
             self.tableView.reloadData()
         })
