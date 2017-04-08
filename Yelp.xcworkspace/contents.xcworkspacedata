@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../Downloads/YelpClone_Full Moon Filled-100.png at master &#xb7; baubrey91_YelpClone.htm">
+   </FileRef>
+   <FileRef
       location = "group:Yelp.xcodeproj">
    </FileRef>
    <FileRef

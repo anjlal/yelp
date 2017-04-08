@@ -30,9 +30,12 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var sort = [YelpSortMode]()
     var distance = [[String:String]]()
     var categories: [[String:String]]!
-    var switchStates = [Int:Bool]()
-    weak var delegate: FiltersViewControllerDelegate?
+    var currentDistance = "Auto"
+    var currentDistanceValue = -1
+    var currentSort : YelpSortMode = .bestMatched
     
+    weak var delegate: FiltersViewControllerDelegate?
+    var switchStates = [IndexPath:Bool]()
     let tableStructure: [[FilterRowIdentifier]] = [[.Deals], [.Distance], [.Sort], [.Category]]
 
     var filterValues = [FilterRowIdentifier: AnyObject] ()
@@ -78,21 +81,25 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var selectedCategories = [String]()
         var deal = false
         
-        for (row, isSelected) in switchStates {
+        for (indexPath, isSelected) in switchStates {
             if isSelected {
-                if row == 0 {
+                if indexPath.section == 0 {
                     deal = true
                 }
-                if row == 3 {
-                    selectedCategories.append(categories[row]["code"]!)
+                if indexPath.section == 3 {
+                    selectedCategories.append(categories[indexPath.row]["code"]!)
                 }
             }
         }
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories as AnyObject?
         }
+        if currentDistanceValue > 0 {
+            filters["radius_filter"] = currentDistanceValue as AnyObject?
+        }
         
         filters["deals_filter"] = deal as AnyObject?
+        filters["sort"] = currentSort.rawValue as AnyObject?
 
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
     }
@@ -138,30 +145,52 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("categories \(categories.count)")
 
             return categories.count
-        }        
-        //print("row count \(tableStructure[section].count)")
-        //return tableStructure[section].count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+         cell.delegate = self
         let filterIdentifier = tableStructure[indexPath.section][0]
         //cell.filterRowIdentifier = filterIdentifier
         switch (filterIdentifier) {
             case .Deals:
-                cell.delegate = self
                 cell.switchLabel.text = "Offering a Deal"
-                cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
+                cell.onSwitch.isOn = switchStates[indexPath] ?? false
                 cell.onSwitch.isHidden = false
                 break
             case .Distance:
-            break
+//                if (!distanceExpanded) {
+//                    
+//                    cell.checkLabel.text = currentDistance
+//                    cell.checkImage.image = #imageLiteral(resourceName: "ExpandArrow")
+//                } else {
+//                    
+//                    cell.checkLabel.text = distanceArray[indexPath.row]["distance"]
+//                    if currentDistance == distanceArray[indexPath.row]["distance"] {
+//                        
+//                        cell.checkImage.image = #imageLiteral(resourceName: "Checked")
+//                    } else {
+//                        
+//                        cell.checkImage.image = #imageLiteral(resourceName: "NotChecked")
+//                    }
+//                }
+                cell.switchLabel.text = distance[indexPath.row]["distance"]
+                break
             case .Sort:
-            break
+                switch(sort[indexPath.row]) {
+                case .bestMatched:
+                    cell.switchLabel.text = "Best Matched"
+                    break
+                case .distance:
+                    cell.switchLabel.text = "Distance"
+                    break
+                default:
+                    cell.switchLabel.text = "Highest Rated"
+                }
             default:
-                cell.delegate = self
                 cell.switchLabel.text = categories[indexPath.row]["name"]
-                cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
+                cell.onSwitch.isOn = switchStates[indexPath] ?? false
         }
       
        
@@ -171,7 +200,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
-        switchStates[indexPath.row] = value
+        switchStates[indexPath] = value
 
     }
     

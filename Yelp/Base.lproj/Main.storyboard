@@ -191,6 +191,39 @@
                                             <outlet property="switchLabel" destination="mIY-ku-LfG" id="3R6-NU-KAY"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckedCell" id="I3c-tK-zUI" customClass="CheckedCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="124" width="375" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I3c-tK-zUI" id="akN-lq-yh5">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdE-es-0iC">
+                                                    <rect key="frame" x="16" y="37" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zb0-ME-bGj">
+                                                    <rect key="frame" x="324" y="35" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="HEB-Rq-uNn"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zb0-ME-bGj" secondAttribute="trailing" constant="18" id="JPc-Fy-dIA"/>
+                                                <constraint firstItem="wdE-es-0iC" firstAttribute="centerY" secondItem="akN-lq-yh5" secondAttribute="centerY" id="OUC-ps-SlZ"/>
+                                                <constraint firstItem="zb0-ME-bGj" firstAttribute="top" secondItem="akN-lq-yh5" secondAttribute="topMargin" constant="27" id="dDt-uY-q6c"/>
+                                                <constraint firstItem="wdE-es-0iC" firstAttribute="leading" secondItem="akN-lq-yh5" secondAttribute="leadingMargin" constant="8" id="iQE-By-Kra"/>
+                                                <constraint firstItem="zb0-ME-bGj" firstAttribute="centerY" secondItem="akN-lq-yh5" secondAttribute="centerY" id="ner-zg-dtB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="checkImage" destination="zb0-ME-bGj" id="qJO-g3-aZU"/>
+                                            <outlet property="checkLabel" destination="wdE-es-0iC" id="BiB-yC-qiM"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
