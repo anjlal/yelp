@@ -133,18 +133,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 0:
             return 1
         case 1:
-            print("distance \(distance.count)")
-
-            return distance.count
+           return distanceExpanded ? distance.count : 1
         case 2:
-            print("sort \(sort.count)")
-
-            return sort.count
-            
+            return sortByExpanded ? sort.count : 1
         default:
-            print("categories \(categories.count)")
-
-            return categories.count
+            return categoryExapanded ? categories.count : 4
         }
     }
     
@@ -152,7 +145,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
          cell.delegate = self
         let filterIdentifier = tableStructure[indexPath.section][0]
-        //cell.filterRowIdentifier = filterIdentifier
         switch (filterIdentifier) {
             case .Deals:
                 cell.switchLabel.text = "Offering a Deal"
@@ -160,22 +152,22 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.onSwitch.isHidden = false
                 break
             case .Distance:
-//                if (!distanceExpanded) {
-//                    
-//                    cell.checkLabel.text = currentDistance
-//                    cell.checkImage.image = #imageLiteral(resourceName: "ExpandArrow")
-//                } else {
-//                    
-//                    cell.checkLabel.text = distanceArray[indexPath.row]["distance"]
-//                    if currentDistance == distanceArray[indexPath.row]["distance"] {
-//                        
-//                        cell.checkImage.image = #imageLiteral(resourceName: "Checked")
-//                    } else {
-//                        
-//                        cell.checkImage.image = #imageLiteral(resourceName: "NotChecked")
-//                    }
-//                }
-                cell.switchLabel.text = distance[indexPath.row]["distance"]
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CheckedCell") as! CheckedCell
+
+                if (!distanceExpanded) {
+                    cell.checkLabel.text = currentDistance
+                    cell.checkImage.image = #imageLiteral(resourceName: "expand")
+                } else {
+                    
+                    cell.checkLabel.text = distance[indexPath.row]["distance"]
+                    if currentDistance == distance[indexPath.row]["distance"] {
+                        
+                        cell.checkImage.image = #imageLiteral(resourceName: "checked")
+                    } else {
+                        
+                        cell.checkImage.image = #imageLiteral(resourceName: "unchecked")
+                    }
+                }
                 break
             case .Sort:
                 switch(sort[indexPath.row]) {
@@ -195,6 +187,37 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
       
        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch indexPath.section {
+        case 0:
+            return
+        case 1:
+            if (distanceExpanded) {
+                
+                currentDistance = distance[indexPath.row]["distance"]!
+                currentDistanceValue = Int(distance[indexPath.row]["meters"]!)!
+            }
+            distanceExpanded = !distanceExpanded
+            tableView.reloadSections(IndexSet([indexPath.section]), with: .automatic)
+            
+        case 2:
+            if (sortByExpanded) {
+                
+                currentSort = sort[indexPath.row]
+            }
+            
+            sortByExpanded = !sortByExpanded
+            tableView.reloadSections(IndexSet([indexPath.section]), with: .automatic)
+            
+        default:
+            if ((indexPath.row == 3 && !categoryExapanded) || indexPath.row == categories.count - 1) {
+                categoryExapanded = !categoryExapanded
+                tableView.reloadSections(IndexSet([indexPath.section]), with: .automatic)
+            }
+        }
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
