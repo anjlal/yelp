@@ -33,6 +33,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var currentDistance = "Auto"
     var currentDistanceValue = -1
     var currentSort : YelpSortMode = .bestMatched
+    let sortByArray = ["Best Match" , "Distance", "Highest Rating"]
     
     weak var delegate: FiltersViewControllerDelegate?
     var switchStates = [IndexPath:Bool]()
@@ -171,17 +172,22 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 return cell
             case .Sort:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-                cell.delegate = self
-                switch(sort[indexPath.row]) {
-                case .bestMatched:
-                    cell.switchLabel.text = "Best Matched"
-                    break
-                case .distance:
-                    cell.switchLabel.text = "Distance"
-                    break
-                default:
-                    cell.switchLabel.text = "Highest Rated"
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CheckedCell") as! CheckedCell
+                
+                if (!sortByExpanded) {
+                    
+                    cell.checkLabel.text = sortByArray[currentSort.rawValue]
+                    cell.checkImage.image = #imageLiteral(resourceName: "expand")
+                } else {
+                    
+                    cell.checkLabel.text = sortByArray[indexPath.row]
+                    if currentSort.rawValue == indexPath.row {
+                        
+                        cell.checkImage.image = #imageLiteral(resourceName: "checked")
+                    } else {
+                        
+                        cell.checkImage.image = #imageLiteral(resourceName: "unchecked")
+                    }
                 }
                 return cell
             default:
