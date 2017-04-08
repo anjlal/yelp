@@ -142,15 +142,16 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-         cell.delegate = self
+
         let filterIdentifier = tableStructure[indexPath.section][0]
         switch (filterIdentifier) {
             case .Deals:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+                cell.delegate = self
                 cell.switchLabel.text = "Offering a Deal"
                 cell.onSwitch.isOn = switchStates[indexPath] ?? false
                 cell.onSwitch.isHidden = false
-                break
+                return cell
             case .Distance:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CheckedCell") as! CheckedCell
 
@@ -168,8 +169,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                         cell.checkImage.image = #imageLiteral(resourceName: "unchecked")
                     }
                 }
-                break
+                return cell
             case .Sort:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+                cell.delegate = self
                 switch(sort[indexPath.row]) {
                 case .bestMatched:
                     cell.switchLabel.text = "Best Matched"
@@ -180,13 +183,15 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 default:
                     cell.switchLabel.text = "Highest Rated"
                 }
+                return cell
             default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+                cell.delegate = self
                 cell.switchLabel.text = categories[indexPath.row]["name"]
                 cell.onSwitch.isOn = switchStates[indexPath] ?? false
+                return cell
         }
       
-       
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -225,6 +230,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         switchStates[indexPath] = value
 
+    }
+    
+    func checkedCell(checkedCell: CheckedCell, didChangeValue value: Bool) {
+        let indexPath = tableView.indexPath(for: checkedCell)!
+        switchStates[indexPath] = value
     }
     
     /*
