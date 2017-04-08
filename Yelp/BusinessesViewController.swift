@@ -17,6 +17,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var isMoreDataLoading = false
     var loadingMoreView:InfiniteScrollActivityView?
     var offset = 0
+    var categories: [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.contentInset = insets
         
         
-        Business.searchWithTerm(term: "Restaurants", offset: 0, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", categories: self.categories, offset: 0, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
             self.filteredData = self.businesses
@@ -122,9 +123,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.offset = self.offset + 20
         
-        Business.searchWithTerm(term: "Restaurants", offset: self.offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", categories: self.categories, offset: self.offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
-            if businesses != nil {
+            if (businesses != nil) {
                 for business in businesses! {
                     self.businesses.append(business)
                 }
@@ -141,7 +142,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                     print(business.address!)
                 }
             }
-            print(self.offset)
             self.tableView.reloadData()
         })
     }
@@ -180,11 +180,27 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
  
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
-        let categories = filters["categories"] as? [String]
+        self.categories?.removeAll()
+        categories = filters["categories"] as? [String]
         
         Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, offset: 20, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
-            self.businesses = businesses ?? nil
-            self.tableView.reloadData()
+            
+            if (businesses != nil && (businesses?.count)! > 0) {
+                self.businesses?.removeAll()
+                for business in businesses! {
+                    self.businesses.append(business)
+                }
+                for biz in self.businesses {
+                    print("biz \(biz.name)")
+                }
+                self.filteredData = self.businesses
+                // TODO: Add animation here
+                self.tableView.reloadData()
+
+            } else {
+                print("No matches for \(self.categories)")
+                self.categories?.removeAll()
+            }
         })
     }
     

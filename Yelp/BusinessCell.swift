@@ -21,7 +21,9 @@ class BusinessCell: UITableViewCell {
     var business: Business! {
         didSet{
             nameLabel.text = business.name
-            thumbImageView.setImageWith(business.imageURL!)
+            if let imageURL = business.imageURL {
+                thumbImageView.setImageWith(imageURL)
+            }
             ratingImageView.setImageWith(business.ratingImageURL!)
             distanceLabel.text = business.distance
             reviewsCountLabel.text = "\(business.reviewCount!) Reviews"

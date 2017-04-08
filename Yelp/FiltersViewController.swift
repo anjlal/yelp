@@ -55,7 +55,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 selectedCategories.append(categories[row]["code"]!)
             }
         }
-        
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories as AnyObject?
         }
