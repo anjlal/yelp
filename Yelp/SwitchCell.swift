@@ -17,6 +17,12 @@ class SwitchCell: UITableViewCell {
     @IBOutlet weak var onSwitch: UISwitch!
     @IBOutlet weak var switchLabel: UILabel!
     
+    var filterRowIdentifier: FilterRowIdentifier! {
+        didSet {
+            switchLabel?.text = filterRowIdentifier?.rawValue
+        }
+    }
+    
     weak var delegate: SwitchCellDelegate?
     
     override func awakeFromNib() {
@@ -32,6 +38,5 @@ class SwitchCell: UITableViewCell {
 
     @IBAction func switchValueChanged(_ sender: Any) {
         delegate?.switchCell?(switchCell: self, didChangeValue: onSwitch.isOn)
-        print("switch changed")
     }
 }
