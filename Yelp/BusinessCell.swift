@@ -23,6 +23,9 @@ class BusinessCell: UITableViewCell {
             nameLabel.text = business.name
             if let imageURL = business.imageURL {
                 thumbImageView.setImageWith(imageURL)
+            } else {
+               
+                thumbImageView.image = #imageLiteral(resourceName: "yelp_thumb")
             }
             ratingImageView.setImageWith(business.ratingImageURL!)
             distanceLabel.text = business.distance
