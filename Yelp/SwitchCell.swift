@@ -26,6 +26,8 @@ class SwitchCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        onSwitch.onTintColor = UIColor(red: 0.82, green: 0.13, blue: 0.13, alpha: 0.8)
 //        customSwitch.addTarget(self, action: #selector(self.switchValueChanged(_:)), for: UIControlEvents.valueChanged)
 //        customSwitch.frame = CGRect(x: self.frame.width - 54 , y: self.frame.height/2 - 12.5, width: 50, height: 25)
 //        customSwitch.thumbImage = UIImage(named: "yelp_thumb.png")
