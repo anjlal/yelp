@@ -241,6 +241,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.tableView.reloadData()
 
             } else {
+                let alert = UIAlertController(title: "Search results", message: "We're sorry, there are no results matching your search at this time.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 print("No matches for \(self.categories)")
                 self.categories?.removeAll()
             }
