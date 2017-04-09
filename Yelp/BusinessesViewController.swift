@@ -18,12 +18,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var loadingMoreView:InfiniteScrollActivityView?
     var offset = 0
     var categories: [String]?
+    var filters = [String: AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        
         
         // Dynamically set the row height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -48,8 +50,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         insets.bottom += InfiniteScrollActivityView.defaultHeight
         tableView.contentInset = insets
         
+        let radiusFilter = filters["radius_filter"] as? Int ?? 40000
+        let dealsFilter = filters["deals_filter"] as? Bool ?? false
+        let sortByFilter = filters["sort"] as? Int ?? 0
         
-        Business.searchWithTerm(term: "Restaurants", categories: self.categories, offset: 0, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: 0, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
             self.filteredData = self.businesses
@@ -123,8 +128,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.offset = self.offset + 20
         
-        Business.searchWithTerm(term: "Restaurants", categories: self.categories, offset: self.offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
+        let radiusFilter = filters["radius_filter"] as? Int ?? 40000
+        let dealsFilter = filters["deals_filter"] as? Bool ?? false
+        let sortByFilter = filters["sort"] as? Int ?? 0
+        print("************\(radiusFilter)")
+        Business.searchWithTerm(term: "Restaurants", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: 0, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        
+//        Business.searchWithTerm(term: "Restaurants", distance: self.filters["radius_filter"] as! Int?, sort: YelpSortMode(rawValue: self.filters["sort"] as! Int), categories: self.categories, deals: self.filters["deals_filter"] as! Bool?, offset: self.offset, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        
             if (businesses != nil) {
                 for business in businesses! {
                     self.businesses.append(business)
@@ -176,14 +187,16 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         filtersViewController.delegate = self
     }
-
  
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
         self.categories?.removeAll()
-        categories = filters["categories"] as? [String]
-        
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, offset: 20, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        categories = filters["categories"] as? [String] ?? nil
+        let radiusFilter = filters["radius_filter"] as? Int ?? 40000
+        let dealsFilter = filters["deals_filter"] as? Bool ?? false
+        let sortByFilter = filters["sort"] as? Int ?? 0
+    
+        Business.searchWithTerm(term: "Restaurants", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: categories, deals: dealsFilter, offset: 20, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             if (businesses != nil && (businesses?.count)! > 0) {
                 self.businesses?.removeAll()
@@ -201,6 +214,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("No matches for \(self.categories)")
                 self.categories?.removeAll()
             }
+            
+            self.filters["radius_filter"] = radiusFilter as AnyObject?
+            self.filters["deals_filter"] = dealsFilter as AnyObject?
+            self.filters["sort"] = sortByFilter as AnyObject?
         })
     }
     

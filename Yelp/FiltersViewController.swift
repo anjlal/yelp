@@ -100,6 +100,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         filters["deals_filter"] = deal as AnyObject?
+        print("current sort raw value \(currentSort.rawValue)")
         filters["sort"] = currentSort.rawValue as AnyObject?
 
         delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
