@@ -19,6 +19,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var offset = 0
     var categories: [String]?
     var filters = [String: AnyObject]()
+    var searchText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let dealsFilter = filters["deals_filter"] as? Bool ?? false
         let sortByFilter = filters["sort"] as? Int ?? 0
         
-        Business.searchWithTerm(term: "Restaurants", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: 0, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        self.searchText = self.searchText ?? "Food"
+        
+        Business.searchWithTerm(term: self.searchText!, distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: 0, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
             self.filteredData = self.businesses
@@ -102,15 +105,28 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    
     // Search bar delegate methods
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        filteredData = searchText.isEmpty ? self.businesses : self.businesses.filter {(item: Business) -> Bool in
-            return item.name?.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        self.categories?.removeAll()
+        let radiusFilter = filters["radius_filter"] as? Int ?? 40000
+        let dealsFilter = filters["deals_filter"] as? Bool ?? false
+        let sortByFilter = filters["sort"] as? Int ?? 0
+        
+        Business.searchWithTerm(term: searchText, distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: 0, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            
+            self.searchText = searchText
+            self.businesses = businesses
+            self.filteredData = self.businesses
+            self.tableView.reloadData()
         }
-        tableView.reloadData()
+        )
+
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        searchBar.endEditing(true)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -127,12 +143,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func loadMoreData() {
         
         self.offset = self.offset + 20
-        
         let radiusFilter = filters["radius_filter"] as? Int ?? 40000
         let dealsFilter = filters["deals_filter"] as? Bool ?? false
         let sortByFilter = filters["sort"] as? Int ?? 0
+        
+        self.searchText = self.searchText ?? "Food"
 
-        Business.searchWithTerm(term: "Restaurants", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: 0, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: self.searchText!, distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: self.offset, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
         
             if (businesses != nil) {
                 for business in businesses! {
@@ -182,11 +199,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "mapView" {
-            _ = segue.destination as! MapViewController
+            let mapVC = segue.destination as! MapViewController
             let backItem = UIBarButtonItem()
             backItem.title = "List"
             navigationItem.backBarButtonItem = backItem
-            //mapVC.businesses = businesses
+            mapVC.businesses = businesses
         } else {
             let navigationController = segue.destination as! UINavigationController
             let filtersViewController = navigationController.topViewController as! FiltersViewController
@@ -205,7 +222,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let dealsFilter = filters["deals_filter"] as? Bool ?? false
         let sortByFilter = filters["sort"] as? Int ?? 0
     
-        Business.searchWithTerm(term: "Restaurants", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: categories, deals: dealsFilter, offset: 20, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Food", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: categories, deals: dealsFilter, offset: 20, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             if (businesses != nil && (businesses?.count)! > 0) {
                 self.businesses?.removeAll()

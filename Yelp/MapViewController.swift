@@ -13,6 +13,8 @@ import CoreLocation
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var locationManager : CLLocationManager!
+    
+    var businesses = [Business]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
