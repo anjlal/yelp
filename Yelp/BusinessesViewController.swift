@@ -43,6 +43,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         // Put search bar in the title view
         navigationItem.titleView = searchBar
         
+        let item = self.navigationItem.rightBarButtonItem
+        let button = item!.customView as! UIButton
+        button.setTitle("Near Me", for: .normal)
+        
         // Set up Infinite Scroll loading indicator
         let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
@@ -73,18 +77,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             
             }
         )
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -94,6 +86,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.contentOffset.y = 0 - self.tableView.contentInset.top
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,7 +121,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.tableView.reloadData()
         }
         )
-
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
@@ -206,11 +198,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "mapView" {
-            _ = segue.destination as! MapViewController
+            let mapVC = segue.destination as! MapViewController
             let backItem = UIBarButtonItem()
             backItem.title = "List"
             navigationItem.backBarButtonItem = backItem
-            //mapVC.businesses = businesses
+            if businesses != nil {
+                mapVC.businesses = businesses
+            }
         } else {
             let navigationController = segue.destination as! UINavigationController
             let filtersViewController = navigationController.topViewController as! FiltersViewController
