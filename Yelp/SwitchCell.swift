@@ -15,14 +15,21 @@ import SevenSwitch
 
 class SwitchCell: UITableViewCell {
 
+  
     @IBOutlet weak var onSwitch: UISwitch!
     @IBOutlet weak var switchLabel: UILabel!
 
+   // var customSwitch = SevenSwitch()
+    
     
     weak var delegate: SwitchCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+//        customSwitch.addTarget(self, action: #selector(self.switchValueChanged(_:)), for: UIControlEvents.valueChanged)
+//        customSwitch.frame = CGRect(x: self.frame.width - 54 , y: self.frame.height/2 - 12.5, width: 50, height: 25)
+//        customSwitch.thumbImage = UIImage(named: "yelp_thumb.png")
+//        self.addSubview(customSwitch)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

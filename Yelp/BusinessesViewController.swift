@@ -90,6 +90,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.contentOffset.y = 0 - self.tableView.contentInset.top
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filteredData != nil {
             return filteredData.count
