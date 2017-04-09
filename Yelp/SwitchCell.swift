@@ -17,11 +17,12 @@ class SwitchCell: UITableViewCell {
     @IBOutlet weak var onSwitch: UISwitch!
     @IBOutlet weak var switchLabel: UILabel!
     
-    var filterRowIdentifier: FilterRowIdentifier! {
-        didSet {
-            switchLabel?.text = filterRowIdentifier?.rawValue
-        }
-    }
+//    var filterRowIdentifier: FilterRowIdentifier! {
+//        didSet {
+//            switchLabel?.text = filterRowIdentifier?.rawValue
+//            print("what is this")
+//        }
+//    }
     
     weak var delegate: SwitchCellDelegate?
     

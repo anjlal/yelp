@@ -131,10 +131,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let radiusFilter = filters["radius_filter"] as? Int ?? 40000
         let dealsFilter = filters["deals_filter"] as? Bool ?? false
         let sortByFilter = filters["sort"] as? Int ?? 0
-        print("************\(radiusFilter)")
+
         Business.searchWithTerm(term: "Restaurants", distance: radiusFilter, sort: YelpSortMode(rawValue: sortByFilter), categories: self.categories, deals: dealsFilter, offset: 0, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
-        
-//        Business.searchWithTerm(term: "Restaurants", distance: self.filters["radius_filter"] as! Int?, sort: YelpSortMode(rawValue: self.filters["sort"] as! Int), categories: self.categories, deals: self.filters["deals_filter"] as! Bool?, offset: self.offset, limit: 1000, completion: { (businesses: [Business]?, error: Error?) -> Void in
         
             if (businesses != nil) {
                 for business in businesses! {
