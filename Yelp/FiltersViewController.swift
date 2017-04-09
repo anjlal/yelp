@@ -59,11 +59,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
 
         // Do any additional setup after loading the view.
-        
-        // TODO: this should be done in initializer
         categories = Filters.yelpCategories()
         distance = Filters.yelpDistance()
         sort = Filters.yelpSort()
+        
     }
 
     override func didReceiveMemoryWarning() {

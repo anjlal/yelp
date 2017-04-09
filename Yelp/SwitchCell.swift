@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SevenSwitch
 
 @objc protocol SwitchCellDelegate {
     @objc optional func switchCell(switchCell: SwitchCell, didChangeValue value: Bool)
@@ -16,13 +17,7 @@ class SwitchCell: UITableViewCell {
 
     @IBOutlet weak var onSwitch: UISwitch!
     @IBOutlet weak var switchLabel: UILabel!
-    
-//    var filterRowIdentifier: FilterRowIdentifier! {
-//        didSet {
-//            switchLabel?.text = filterRowIdentifier?.rawValue
-//            print("what is this")
-//        }
-//    }
+
     
     weak var delegate: SwitchCellDelegate?
     
