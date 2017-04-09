@@ -38,7 +38,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     weak var delegate: FiltersViewControllerDelegate?
     var switchStates = [IndexPath:Bool]()
     let tableStructure: [[FilterRowIdentifier]] = [[.Deals], [.Distance], [.Sort], [.Category]]
-
+    
     var filterValues = [FilterRowIdentifier: AnyObject] ()
     var currentFilters: Filters! {
         didSet {
@@ -57,6 +57,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.dataSource = self
         tableView.delegate = self
+
 
         // Do any additional setup after loading the view.
         categories = Filters.yelpCategories()
@@ -164,7 +165,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                     cell.checkLabel.text = distance[indexPath.row]["distance"]
                     if currentDistance == distance[indexPath.row]["distance"] {
                         
-                        cell.checkImage.image = #imageLiteral(resourceName: "checked")
+                        cell.checkImage.image = #imageLiteral(resourceName: "checkmark")
                     } else {
                         
                         cell.checkImage.image = #imageLiteral(resourceName: "unchecked")
@@ -183,7 +184,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                     cell.checkLabel.text = sortByArray[indexPath.row]
                     if currentSort.rawValue == indexPath.row {
                         
-                        cell.checkImage.image = #imageLiteral(resourceName: "checked")
+                        cell.checkImage.image = #imageLiteral(resourceName: "checkmark")
                     } else {
                         
                         cell.checkImage.image = #imageLiteral(resourceName: "unchecked")

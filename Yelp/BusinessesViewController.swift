@@ -36,7 +36,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let searchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.sizeToFit()
-        
+        searchBar.searchBarStyle = .minimal
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .white
         
         // Put search bar in the title view
         navigationItem.titleView = searchBar
@@ -128,6 +130,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         )
 
     }
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     {
         searchBar.endEditing(true)
@@ -203,11 +206,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "mapView" {
-            let mapVC = segue.destination as! MapViewController
+            _ = segue.destination as! MapViewController
             let backItem = UIBarButtonItem()
             backItem.title = "List"
             navigationItem.backBarButtonItem = backItem
-            mapVC.businesses = businesses
+            //mapVC.businesses = businesses
         } else {
             let navigationController = segue.destination as! UINavigationController
             let filtersViewController = navigationController.topViewController as! FiltersViewController
@@ -253,5 +256,5 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.filters["sort"] = sortByFilter as AnyObject?
         })
     }
-    
 }
+
