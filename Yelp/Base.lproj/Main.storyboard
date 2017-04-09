@@ -141,7 +141,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Map"/>
                                 <connections>
-                                    <segue destination="29f-xi-Igl" kind="presentation" identifier="mapView" id="kAH-9c-cl2"/>
+                                    <segue destination="29f-xi-Igl" kind="show" identifier="mapView" id="SAo-MS-DHG"/>
                                 </connections>
                             </button>
                         </barButtonItem>

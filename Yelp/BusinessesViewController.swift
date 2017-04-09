@@ -183,6 +183,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier == "mapView" {
             _ = segue.destination as! MapViewController
+            let backItem = UIBarButtonItem()
+            backItem.title = "List"
+            navigationItem.backBarButtonItem = backItem
             //mapVC.businesses = businesses
         } else {
             let navigationController = segue.destination as! UINavigationController
