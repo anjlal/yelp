@@ -18,6 +18,7 @@
 		31D95BCBCA38716181E686D3 /* Pods_Yelp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79C0AC126EDAA235847CEA2 /* Pods_Yelp.framework */; };
 		47848697133B87663A122E3D /* Pods_YelpTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1000F3975EB43318C1D4FA /* Pods_YelpTests.framework */; };
 		B309F3EA1E9765CE007A871B /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B309F3E91E9765CE007A871B /* InfiniteScrollActivityView.swift */; };
+		B327CC351E99D1F900D6FD64 /* SeeAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B327CC341E99D1F900D6FD64 /* SeeAllCell.swift */; };
 		B382FB781E9942C200AB50FD /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382FB771E9942C200AB50FD /* Filters.swift */; };
 		B382FB7E1E997C6900AB50FD /* CheckedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382FB7D1E997C6900AB50FD /* CheckedCell.swift */; };
 		B3FA1AD71E94B1CF006B2A27 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA1AD61E94B1CF006B2A27 /* BusinessCell.swift */; };
@@ -54,6 +55,7 @@
 		9B128C050DE78660DE2A8E75 /* Pods-YelpTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YelpTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YelpTests/Pods-YelpTests.release.xcconfig"; sourceTree = "<group>"; };
 		AA3C5CF4FD317D72ABE2AAC4 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B309F3E91E9765CE007A871B /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
+		B327CC341E99D1F900D6FD64 /* SeeAllCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeAllCell.swift; sourceTree = "<group>"; };
 		B382FB771E9942C200AB50FD /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		B382FB7D1E997C6900AB50FD /* CheckedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckedCell.swift; sourceTree = "<group>"; };
 		B3FA1AD61E94B1CF006B2A27 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				B3FA1ADC1E95F954006B2A27 /* SwitchCell.swift */,
 				B309F3E91E9765CE007A871B /* InfiniteScrollActivityView.swift */,
 				B382FB7D1E997C6900AB50FD /* CheckedCell.swift */,
+				B327CC341E99D1F900D6FD64 /* SeeAllCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B309F3EA1E9765CE007A871B /* InfiniteScrollActivityView.swift in Sources */,
+				B327CC351E99D1F900D6FD64 /* SeeAllCell.swift in Sources */,
 				B382FB7E1E997C6900AB50FD /* CheckedCell.swift in Sources */,
 				B3FA1AD71E94B1CF006B2A27 /* BusinessCell.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,

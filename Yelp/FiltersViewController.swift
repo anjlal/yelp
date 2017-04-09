@@ -25,7 +25,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var distanceExpanded = false
     var sortByExpanded = false
-    var categoryExapanded = false
+    var categoryExpanded = false
     
     var sort = [YelpSortMode]()
     var distance = [[String:String]]()
@@ -139,7 +139,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 2:
             return sortByExpanded ? sort.count : 1
         default:
-            return categoryExapanded ? categories.count : 4
+            return categoryExpanded ? categories.count : 4
         }
     }
     
@@ -192,11 +192,18 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 return cell
             default:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-                cell.delegate = self
-                cell.switchLabel.text = categories[indexPath.row]["name"]
-                cell.onSwitch.isOn = switchStates[indexPath] ?? false
-                return cell
+  
+                if !categoryExpanded && indexPath.row == 3 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "SeeAllCell", for: indexPath) as! SeeAllCell
+                    return cell
+
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+                    cell.delegate = self
+                    cell.switchLabel.text = categories[indexPath.row]["name"]
+                    cell.onSwitch.isOn = switchStates[indexPath] ?? false
+                    return cell
+                 }
         }
       
     }
@@ -225,8 +232,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableView.reloadSections(IndexSet([indexPath.section]), with: .automatic)
             
         default:
-            if ((indexPath.row == 3 && !categoryExapanded) || indexPath.row == categories.count - 1) {
-                categoryExapanded = !categoryExapanded
+            if ((indexPath.row == 3 && !categoryExpanded) || indexPath.row == categories.count - 1) {
+                categoryExpanded = !categoryExpanded
                 tableView.reloadSections(IndexSet([indexPath.section]), with: .automatic)
             }
         }
@@ -237,11 +244,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         switchStates[indexPath] = value
 
-    }
-    
-    func checkedCell(checkedCell: CheckedCell, didChangeValue value: Bool) {
-        let indexPath = tableView.indexPath(for: checkedCell)!
-        switchStates[indexPath] = value
     }
     
     /*
