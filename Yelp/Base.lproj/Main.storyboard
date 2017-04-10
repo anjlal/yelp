@@ -168,7 +168,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="El6-Ip-bhF" id="udK-DO-nDU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIY-ku-LfG">
@@ -177,22 +177,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="REu-Ht-2V3">
-                                                    <rect key="frame" x="317" y="32" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="switchValueChanged:" destination="El6-Ip-bhF" eventType="valueChanged" id="XCZ-aT-Loj"/>
-                                                    </connections>
-                                                </switch>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQ0-xh-aO1">
+                                                    <rect key="frame" x="280" y="22" width="85" height="50"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="mIY-ku-LfG" firstAttribute="centerY" secondItem="udK-DO-nDU" secondAttribute="centerY" id="AQG-Vd-WPH"/>
-                                                <constraint firstItem="mIY-ku-LfG" firstAttribute="leading" secondItem="udK-DO-nDU" secondAttribute="leading" constant="14" id="XDh-f3-cIE"/>
-                                                <constraint firstAttribute="trailing" secondItem="REu-Ht-2V3" secondAttribute="trailing" constant="9" id="aRu-da-6b4"/>
-                                                <constraint firstItem="REu-Ht-2V3" firstAttribute="centerY" secondItem="udK-DO-nDU" secondAttribute="centerY" id="bbo-sK-LoM"/>
+                                                <constraint firstItem="mIY-ku-LfG" firstAttribute="leading" secondItem="udK-DO-nDU" secondAttribute="leadingMargin" constant="6" id="06p-ps-xqd"/>
+                                                <constraint firstItem="gQ0-xh-aO1" firstAttribute="centerY" secondItem="udK-DO-nDU" secondAttribute="centerY" id="1ci-XH-gNY"/>
+                                                <constraint firstItem="gQ0-xh-aO1" firstAttribute="top" secondItem="udK-DO-nDU" secondAttribute="topMargin" constant="14" id="64l-WG-eze"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gQ0-xh-aO1" secondAttribute="trailing" constant="2" id="INp-62-mrU"/>
+                                                <constraint firstItem="gQ0-xh-aO1" firstAttribute="leading" secondItem="udK-DO-nDU" secondAttribute="leading" constant="280" id="L4j-qZ-s7U"/>
+                                                <constraint firstItem="mIY-ku-LfG" firstAttribute="centerY" secondItem="udK-DO-nDU" secondAttribute="centerY" id="n7p-Er-Ouj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="onSwitch" destination="REu-Ht-2V3" id="f8V-hG-7XY"/>
+                                            <outlet property="onSwitch" destination="gQ0-xh-aO1" id="P5z-hB-6sz"/>
                                             <outlet property="switchLabel" destination="mIY-ku-LfG" id="3R6-NU-KAY"/>
                                         </connections>
                                     </tableViewCell>

@@ -14,13 +14,8 @@ import SevenSwitch
 }
 
 class SwitchCell: UITableViewCell {
-
-  
-    @IBOutlet weak var onSwitch: UISwitch!
+    @IBOutlet weak var onSwitch: SevenSwitch!
     @IBOutlet weak var switchLabel: UILabel!
-
-   // var customSwitch = SevenSwitch()
-    
     
     weak var delegate: SwitchCellDelegate?
     
@@ -28,10 +23,10 @@ class SwitchCell: UITableViewCell {
         super.awakeFromNib()
         
         onSwitch.onTintColor = UIColor(red: 0.82, green: 0.13, blue: 0.13, alpha: 0.8)
-//        customSwitch.addTarget(self, action: #selector(self.switchValueChanged(_:)), for: UIControlEvents.valueChanged)
-//        customSwitch.frame = CGRect(x: self.frame.width - 54 , y: self.frame.height/2 - 12.5, width: 50, height: 25)
-//        customSwitch.thumbImage = UIImage(named: "yelp_thumb.png")
-//        self.addSubview(customSwitch)
+        onSwitch.addTarget(self, action: #selector(self.switchValueChanged(_:)), for: UIControlEvents.valueChanged)
+        onSwitch.frame = CGRect(x: self.frame.width - 54 , y: self.frame.height/2 - 12.5, width: 50, height: 25)
+        onSwitch.thumbImage = UIImage(named: "yelp_thumb.png")
+        self.addSubview(onSwitch)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,6 +36,6 @@ class SwitchCell: UITableViewCell {
     }
 
     @IBAction func switchValueChanged(_ sender: Any) {
-        delegate?.switchCell?(switchCell: self, didChangeValue: onSwitch.isOn)
+        delegate?.switchCell?(switchCell: self, didChangeValue: onSwitch.on)
     }
 }

@@ -151,7 +151,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
                 cell.delegate = self
                 cell.switchLabel.text = "Offering a Deal"
-                cell.onSwitch.isOn = switchStates[indexPath] ?? false
+                cell.onSwitch.on = switchStates[indexPath] ?? false
                 cell.onSwitch.isHidden = false
                 return cell
             case .Distance:
@@ -201,7 +201,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
                     cell.delegate = self
                     cell.switchLabel.text = categories[indexPath.row]["name"]
-                    cell.onSwitch.isOn = switchStates[indexPath] ?? false
+                    cell.onSwitch.on = switchStates[indexPath] ?? false
                     return cell
                  }
         }
