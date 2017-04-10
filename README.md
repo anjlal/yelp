@@ -2,7 +2,7 @@
 
 **Name of your app** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: **X** hours spent in total
+Time spent: 30+ hours spent in total
 
 ## User Stories
 
@@ -21,23 +21,22 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] Search results page
+- [x] Search results page
    - [x] Infinite scroll for restaurant results.
-   - [ ] Implement map view of restaurant results.
-- [ ] Filter page
-   - [ ] Implement a custom switch instead of the default UISwitch.
+   - [x] Implement map view of restaurant results.
+- [x] Filter page
+   - [x] Implement a custom switch instead of the default UISwitch.
    - [x] Distance filter should expand as in the real Yelp app
    - [x] Categories should show a subset of the full list with a "See All" row to expand. Category list is [here](http://www.yelp.com/developers/documentation/category_list).
 - [ ] Implement the restaurant detail page.
 
 The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Added an alert modal when there isn't a match for the filter criteria
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. I would have liked to extend the app by adding custom animations; I'd like to understand the mechanics better. (I feel quite weak in styling apps in general, and it's something I'd like to improve upon in the upcoming apps.) My autolayout-fu could use some work; I grasp the basics but would like to develop better intuition here.
+2. In general, I would like to become less reliant on using the docs to set up apps over time. 
 
 ## Video Walkthrough
 
@@ -49,11 +48,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I made some silly mistakes like adding a button instead of using a button item in the nav bar, and not correctly setting up my custom switch that used a 3rd-party library. However, through making enough of those mistakes, I certainly learned new things and where the gaps in my knowledge lie.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2017] [Angie Lal]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
