@@ -134,16 +134,10 @@
                                 <segue destination="94H-Vy-rdk" kind="presentation" id="12Q-mO-SCO"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="8eA-J0-i4z">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XEy-uI-9Um">
-                                <rect key="frame" x="276" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Map"/>
-                                <connections>
-                                    <segue destination="29f-xi-Igl" kind="show" identifier="mapView" id="SAo-MS-DHG"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Near Me" id="dXt-MI-GS2">
+                            <connections>
+                                <segue destination="29f-xi-Igl" kind="show" identifier="mapView" id="htA-H2-kqZ"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

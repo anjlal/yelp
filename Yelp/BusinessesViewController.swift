@@ -20,7 +20,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var categories: [String]?
     var filters = [String: AnyObject]()
     var searchText: String?
-    
+    let searchBar = UISearchBar()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,19 +34,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.estimatedRowHeight = 120
         
         // Create search bar in nav bar
-        let searchBar = UISearchBar()
         searchBar.delegate = self
-        searchBar.sizeToFit()
+        //searchBar.sizeToFit()
         searchBar.searchBarStyle = .minimal
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .white
         
         // Put search bar in the title view
         navigationItem.titleView = searchBar
-        
-        let item = self.navigationItem.rightBarButtonItem
-        let button = item!.customView as! UIButton
-        button.setTitle("Near Me", for: .normal)
+
         
         // Set up Infinite Scroll loading indicator
         let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
