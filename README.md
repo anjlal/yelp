@@ -31,7 +31,7 @@ The following **optional** features are implemented:
 - [ ] Implement the restaurant detail page.
 
 The following **additional** features are implemented:
-- [x] Added an alert modal when there isn't a match for the filter criteria
+- [x] Added an alert modal when there isn't a match for the filter criteria.
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -42,7 +42,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![alt tag](https://raw.githubusercontent.com/anjlal/yelp/master/yelp.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
