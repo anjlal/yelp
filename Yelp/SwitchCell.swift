@@ -25,6 +25,7 @@ class SwitchCell: UITableViewCell {
         onSwitch.onTintColor = UIColor(red: 0.82, green: 0.13, blue: 0.13, alpha: 0.8)
         onSwitch.addTarget(self, action: #selector(self.switchValueChanged(_:)), for: UIControlEvents.valueChanged)
         onSwitch.thumbImage = #imageLiteral(resourceName: "yelp_thumb")
+        onSwitch.onThumbTintColor = .black
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
