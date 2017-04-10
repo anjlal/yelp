@@ -82,7 +82,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.contentOffset.y = 0 - self.tableView.contentInset.top
+        self.tableView.contentOffset.y = self.tableView.contentInset.top
         tableView.reloadData()
     }
     
