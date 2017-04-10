@@ -57,13 +57,13 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.dataSource = self
         tableView.delegate = self
-
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
 
         // Do any additional setup after loading the view.
         categories = Filters.yelpCategories()
         distance = Filters.yelpDistance()
         sort = Filters.yelpSort()
-        
     }
 
     override func didReceiveMemoryWarning() {
